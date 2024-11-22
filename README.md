@@ -37,32 +37,30 @@ dotnet add package FuncAuthz
 In your **`Program.cs`** or **`Startup.cs`**, configure the authentication and authorization services:  
 
 ```csharp
-using FuncAuthz;
+using System.Text;
+using FuncAuthz.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults(builder =>
+    .ConfigureFunctionsWebApplication(builder =>
     {
-        builder.UseAuthentication(authBuilder =>
-        {
-            authBuilder.AddJwtBearer(options =>
+        builder.AddAuthentication()
+            .AddJwtBearer(new TokenValidationParameters
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "your-issuer",
-                    ValidAudience = "your-audience",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-key"))
-                };
+                ValidateAudience = false,
+                ValidateIssuer = true,
+                ValidIssuer = "Issuer",
+                RequireExpirationTime = true,
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes("A secure key that's shared between AspNetCore and Azure Functions")),
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             });
-        });
     })
-    .Build();
+.Build();
 
 host.Run();
 ```
