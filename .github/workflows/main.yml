@@ -33,7 +33,15 @@ jobs:
     - name: Set version
       id: version
       run: |
-        echo "VERSION=$(git describe --tags --always --dirty)" >> $GITHUB_ENV
+        TAG=$(git describe --tags --abbrev=0 || echo "0.1.0")
+        COMMITS=$(git rev-list $TAG..HEAD --count)
+        HASH=$(git rev-parse --short HEAD)
+        if [ "$COMMITS" -eq "0" ]; then
+          VERSION=$TAG
+        else
+          VERSION="$TAG.$COMMITS-$HASH"
+        fi
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     # Pack the project
     - name: Pack NuGet Package
