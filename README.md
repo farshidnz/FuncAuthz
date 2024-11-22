@@ -1,6 +1,10 @@
 
 # FuncAuthz  
 
+<p align="center">
+  <img src="Funcauthz.png" alt="FuncAuthz Logo" width="200">
+</p>
+
 **FuncAuthz** is a .NET package designed to provide authentication and authorization for **Azure Function Apps** using **JWT tokens**. This package simplifies the process of securing your Azure Functions by integrating JWT token validation and role-based access control.  
 
 ---
