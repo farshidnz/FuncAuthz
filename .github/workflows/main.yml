@@ -1,0 +1,45 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Setup .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0 # Adjust to your .NET version
+
+    # Install dependencies
+    - name: Install dependencies
+      run: dotnet restore
+
+    # Build the project
+    - name: Build project
+      run: dotnet build --configuration Release
+
+    # Determine version based on Git tags
+    - name: Set version
+      id: version
+      run: |
+        echo "VERSION=$(git describe --tags --always --dirty)" >> $GITHUB_ENV
+
+    # Pack the project
+    - name: Pack NuGet Package
+      run: dotnet pack --configuration Release --output ./output /p:Version=${{ env.VERSION }}
+
+    # Publish to NuGet
+    - name: Publish to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./output/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
