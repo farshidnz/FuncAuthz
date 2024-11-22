@@ -31,7 +31,7 @@ jobs:
 
     # Pack the project
     - name: Pack NuGet Package
-      run: dotnet pack --configuration Release --output ./output /p:Version=0.1.0.2
+      run: dotnet pack --configuration Release --output ./output /p:Version=0.1.0.3
 
     # Publish to NuGet
     - name: Publish to NuGet
