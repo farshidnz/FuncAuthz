@@ -1,0 +1,53 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Fetch full history including tags
+
+    # Setup .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0 # Adjust to your .NET version
+
+    # Install dependencies
+    - name: Install dependencies
+      run: dotnet restore
+
+    # Build the project
+    - name: Build project
+      run: dotnet build --configuration Release
+
+    # Get the latest tag
+    - name: Get Latest Git Tag
+      id: get-tag
+      run: |
+        LATEST_TAG=$(git describe --tags --abbrev=0)
+        echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+
+    # Use the latest tag
+    - name: Use Latest Tag
+      run: echo "The latest tag is $LATEST_TAG"
+        
+    # Pack the project
+    - name: Pack NuGet Package
+      run: dotnet pack --configuration Release --output ./output /p:Version=$LATEST_TAG
+
+    # Publish to NuGet
+    - name: Publish to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./output/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json

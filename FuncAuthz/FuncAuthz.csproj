@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- NuGet Metadata -->
+        <PackageProjectUrl>https://github.com/farshidnz/FuncAuthz</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/farshidnz/FuncAuthz</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageIcon>Funcauthz.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile> 
+        <PackageId>FuncAuthz</PackageId>
+        <Title>FuncAuthz</Title>
+        <Description>A lightweight library for managing authentication and authorization in Azure Functions WebApp</Description>
+        <Authors>Farshid Shokoohi</Authors>
+        <PackageTags>authorization;authentication;azure-functions;jwt;Azure Function Web App Auth;Funtion Auth;Azure Function token;Azure Funtion Authrization;Azure Funtion Authentication</PackageTags>
+        <Copyright>Copyright © 2024 Farshid Shokoohi</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Core" Version="2.0.0"/>
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.0.0"/>
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.2.1"/>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="assets\Funcauthz.png" Pack="true" PackagePath=""/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+
+        <Content Include="assets\Funcauthz.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
