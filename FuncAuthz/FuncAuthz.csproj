@@ -19,10 +19,6 @@
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.2.1" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.1" />
     </ItemGroup>
-    <ItemGroup>
-      <None Include="assets/Funcauthz.png" Pack="true" PackagePath="\" />
-    </ItemGroup>
-
 
     <ItemGroup>
       <None Remove="assets\Funcauthz.png" />
