@@ -34,13 +34,7 @@ jobs:
       id: version
       run: |
         TAG=$(git describe --tags --abbrev=0)
-        COMMITS=$(git rev-list $TAG..HEAD --count)
-        HASH=$(git rev-parse --short HEAD)
-        if [ "$COMMITS" -eq "0" ]; then
-          VERSION=$TAG
-        else
-          VERSION="$TAG.$COMMITS-$HASH"
-        fi
+        VERSION=$TAG
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     # Pack the project
