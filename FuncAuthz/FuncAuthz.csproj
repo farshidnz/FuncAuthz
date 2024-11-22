@@ -7,7 +7,7 @@
         <PackageProjectUrl>https://github.com/farshidnz/FuncAuthz</PackageProjectUrl>
         <RepositoryUrl>https://github.com/farshidnz/FuncAuthz</RepositoryUrl>      
         <RepositoryType>git</RepositoryType>                            
-        <PackageIcon>assets/Funcauthz.png</PackageIcon>                            
+        <PackageIcon>assets\Funcauthz.png</PackageIcon>                            
     </PropertyGroup>
 
     <ItemGroup>
