@@ -4,6 +4,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PackageProjectUrl>https://github.com/farshidnz/FuncAuthz</PackageProjectUrl> <
+        <RepositoryUrl>https://github.com/farshidnz/FuncAuthz</RepositoryUrl>      
+        <RepositoryType>git</RepositoryType>                            
+        <PackageIcon>../Funcauthz.png</PackageIcon>                            
     </PropertyGroup>
 
     <ItemGroup>
